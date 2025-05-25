@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Space Chatbot{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="chatbot-container" data-chatbot-url="{% url 'space_llm_chatbot' %}">
+  <div class="chatbot-header">
+    <div class="header-content">
+      <i class="fas fa-robot"></i>
+      <h1>Space Explorer AI</h1>
+      <p>Ask me anything about space, astronomy, and astrophysics</p>
+    </div>
+  </div>
+  
+  <div class="chatbot-main">
+    <div class="chat-messages" id="chat-messages">
+      <div class="message bot-message">
+        <div class="message-content">
+          <div class="message-text">Hello! I'm your Space Explorer AI assistant. I can answer questions about space, astronomy, NASA, planets, stars, and more. What would you like to know?</div>
+        </div>
+        <div class="message-time">{{ current_time }}</div>
+      </div>
+    </div>
+    
+    <div class="chat-input">
+      <form id="chat-form">
+        <input type="text" id="user-input" placeholder="Type your space-related question..." autocomplete="off" required>
+        <button type="submit" id="send-button">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </form>
+      <div class="input-hint">Press Enter to send</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Pass CSRF token to JavaScript
+  const CSRF_TOKEN = "{{ csrf_token }}";
+</script>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/chatbot.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,322 @@
+{% extends 'base.html' %}
+{%load static %}
+{% block content %}
+<!-- Hero Section -->
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">Discover New Worlds</h1>
+                <p class="lead mb-4">Exploring exoplanet detection and habitability prediction using NASA's Kepler dataset through advanced machine learning techniques.</p>
+                <div class="d-flex gap-3">
+                    <a href="#features" class="btn btn-primary btn-lg px-4">Explore Features</a>
+                    <a href="#" class="btn btn-outline-light btn-lg px-4">View Data Analysis</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="images/exoplanet-hero.png" alt="Exoplanet Visualization" class="img-fluid hero-image">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Introduction -->
+<section class="py-5 bg-light" id="about">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <h2 class="display-5 fw-bold mb-3">About Our Project</h2>
+                <p class="lead">Harnessing the power of NASA's Kepler mission data to push the boundaries of exoplanet discovery and habitability assessment.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <!-- Card 1 -->
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon bg-primary bg-gradient mb-3">
+                            <i class="fas fa-satellite"></i>
+                        </div>
+                        <h3>Kepler Mission Data</h3>
+                        <p class="text-muted">Utilizing over 4 years of photometric data from NASA's Kepler spacecraft, monitoring 150,000+ stars for planetary transits.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon bg-success bg-gradient mb-3">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>Machine Learning Models</h3>
+                        <p class="text-muted">Advanced CNN and ANN architectures trained to detect exoplanet signatures with 99.6% accuracy and predict habitability potential.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon bg-warning bg-gradient mb-3">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h3>Habitability Prediction</h3>
+                        <p class="text-muted">Analyzing planetary characteristics to assess potential for liquid water and Earth-like conditions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5" id="features">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <h2 class="display-5 fw-bold mb-3">Explore Our Features</h2>
+                <p class="lead">Interactive tools and visualizations to bring exoplanet science to your fingertips.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <!-- Data Visualization -->
+            <div class="col-lg-6">
+                <div class="card feature-card h-100">
+                    <div class="row g-0">
+                        <div class="col-md-5">
+                            <img src="images/data-viz.jpg" class="img-fluid rounded-start" alt="Data Visualization">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h3 class="card-title">Data Visualization & Analysis</h3>
+                                <p class="card-text">Interactive exploration of Kepler light curves, model performance metrics, and exoplanet characteristics.</p>
+                                <ul class="feature-list">
+                                    <li><i class="fas fa-chart-line text-primary"></i> Light curve analysis</li>
+                                    <li><i class="fas fa-project-diagram text-primary"></i> Model performance metrics</li>
+                                    <li><i class="fas fa-star text-primary"></i> Exoplanet catalog browser</li>
+                                </ul>
+                                <a href="#" class="btn btn-outline-primary mt-2">Explore Data</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Space Blog -->
+            <div class="col-lg-6">
+                <div class="card feature-card h-100">
+                    <div class="row g-0">
+                        <div class="col-md-5">
+                            <img src="images/space-blog.jpg" class="img-fluid rounded-start" alt="Space Blog">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h3 class="card-title">Space Science Blog</h3>
+                                <p class="card-text">Insights from astronomers, data scientists, and space enthusiasts about exoplanet research and discoveries.</p>
+                                <ul class="feature-list">
+                                    <li><i class="fas fa-user-astronaut text-primary"></i> Expert contributions</li>
+                                    <li><i class="fas fa-newspaper text-primary"></i> Latest research summaries</li>
+                                    <li><i class="fas fa-comments text-primary"></i> Community discussions</li>
+                                </ul>
+                                <a href="#" class="btn btn-outline-primary mt-2">Read Articles</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Live Tracking -->
+            <div class="col-lg-6">
+                <div class="card feature-card h-100">
+                    <div class="row g-0">
+                        <div class="col-md-5">
+                            <img src="images/iss-tracking.jpg" class="img-fluid rounded-start" alt="ISS Tracking">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h3 class="card-title">Live Space Tracking</h3>
+                                <p class="card-text">Real-time orbital tracking and astronomy tools for space enthusiasts.</p>
+                                <ul class="feature-list">
+                                    <li><i class="fas fa-satellite text-primary"></i> ISS live position</li>
+                                    <li><i class="fas fa-map text-primary"></i> Interactive sky maps</li>
+                                    <li><i class="fas fa-globe text-primary"></i> Solar system simulator</li>
+                                </ul>
+                                <a href="#" class="btn btn-outline-primary mt-2">Track Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Coming Soon -->
+            <div class="col-lg-6">
+                <div class="card feature-card h-100">
+                    <div class="row g-0">
+                        <div class="col-md-5">
+                            <img src="images/coming-soon.jpg" class="img-fluid rounded-start" alt="Coming Soon">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h3 class="card-title">More Exciting Features</h3>
+                                <p class="card-text">We're constantly expanding our platform with new tools and resources.</p>
+                                <ul class="feature-list">
+                                    <li><i class="fas fa-rocket text-primary"></i> Exoplanet discovery alerts</li>
+                                    <li><i class="fas fa-vr-cardboard text-primary"></i> 3D planetary system viewer</li>
+                                    <li><i class="fas fa-users text-primary"></i> Citizen science projects</li>
+                                </ul>
+                                <button class="btn btn-outline-secondary mt-2" disabled>Coming Soon</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Recent Discoveries -->
+<section class="py-5 bg-dark text-white">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <h2 class="display-5 fw-bold mb-3">Recent Discoveries</h2>
+                <p class="lead">Highlighting the most interesting exoplanets identified by our models</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card discovery-card h-100">
+                    <img src="images/exoplanet1.jpg" class="card-img-top" alt="Kepler-186f">
+                    <div class="card-body">
+                        <span class="badge bg-success mb-2">Potentially Habitable</span>
+                        <h4 class="card-title">Kepler-186f</h4>
+                        <p class="card-text">Earth-sized planet in the habitable zone of a red dwarf star, discovered by our CNN model with 98.7% confidence.</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <small class="text-muted">Discovered April 2014 | 582 light-years away</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card discovery-card h-100">
+                    <img src="images/exoplanet2.jpg" class="card-img-top" alt="Kepler-452b">
+                    <div class="card-body">
+                        <span class="badge bg-warning mb-2">Further Analysis Needed</span>
+                        <h4 class="card-title">Kepler-452b</h4>
+                        <p class="card-text">"Earth's cousin" orbiting a Sun-like star, identified through our light curve analysis pipeline.</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <small class="text-muted">Discovered July 2015 | 1,402 light-years away</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card discovery-card h-100">
+                    <img src="images/exoplanet3.jpg" class="card-img-top" alt="TRAPPIST-1e">
+                    <div class="card-body">
+                        <span class="badge bg-success mb-2">High Habitability Score</span>
+                        <h4 class="card-title">TRAPPIST-1e</h4>
+                        <p class="card-text">Rocky planet with potential liquid water, validated by our habitability prediction model.</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <small class="text-muted">Discovered February 2017 | 39 light-years away</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="#" class="btn btn-outline-light">View All Discoveries</a>
+        </div>
+    </div>
+</section>
+
+<!-- Latest Blog Posts -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-between align-items-center mb-4">
+            <div class="col-md-8">
+                <h2 class="display-5 fw-bold">From Our Blog</h2>
+                <p class="lead mb-0">Insights from astronomers and data scientists</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <a href="#" class="btn btn-outline-primary">View All Posts</a>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="card blog-card h-100">
+                    <img src="images/blog1.jpg" class="card-img-top" alt="Blog Post">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="images/author1.jpg" class="rounded-circle me-2" width="30" alt="Author">
+                            <small class="text-muted">Dr. Sarah Johnson • 3 days ago</small>
+                        </div>
+                        <h5 class="card-title">Understanding Light Curves</h5>
+                        <p class="card-text">How we decode the subtle dips in starlight that reveal distant worlds.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card blog-card h-100">
+                    <img src="images/blog2.jpg" class="card-img-top" alt="Blog Post">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="images/author2.jpg" class="rounded-circle me-2" width="30" alt="Author">
+                            <small class="text-muted">Prof. Michael Chen • 1 week ago</small>
+                        </div>
+                        <h5 class="card-title">Habitability Index Explained</h5>
+                        <p class="card-text">Our new metric for assessing which exoplanets might support life.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card blog-card h-100">
+                    <img src="images/blog3.jpg" class="card-img-top" alt="Blog Post">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="images/author3.jpg" class="rounded-circle me-2" width="30" alt="Author">
+                            <small class="text-muted">Alex Rivera • 2 weeks ago</small>
+                        </div>
+                        <h5 class="card-title">ML in Astronomy</h5>
+                        <p class="card-text">How convolutional neural networks are revolutionizing exoplanet detection.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Signup -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="display-5 fw-bold mb-3">Stay Updated</h2>
+                <p class="lead mb-4">Subscribe to receive updates on new discoveries, feature releases, and blog posts.</p>
+
+                <form class="row g-2 justify-content-center">
+                    <div class="col-md-8">
+                        <input type="email" class="form-control form-control-lg" placeholder="Your email address">
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary btn-lg w-100">Subscribe</button>
+                    </div>
+                    <div class="col-12">
+                        <small class="text-muted">We'll never share your email. Unsubscribe anytime.</small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- You can continue the rest of the sections (Recent Discoveries, Blog, Newsletter) in a similar way -->
+{% endblock %}

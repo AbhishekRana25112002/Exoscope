@@ -1,0 +1,339 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Exoplanet Detection Analytics{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/analysis.css' %}">
+{% endblock %}
+
+{% block content %}
+  <!-- Hero Section -->
+  <div class="hero text-center">
+    <div class="container hero-content">
+      <h1 class="display-4 mb-3 hero-title animate__animated animate__fadeInDown"><i class="fas fa-star"></i> Exoplanet Detection Analytics</h1>
+      <p class="lead animate__animated animate__fadeIn animate__delay-1s">Advanced visualization of Kepler mission data</p>
+      <div class="mt-4 animate__animated animate__fadeIn animate__delay-2s">
+        <a href="#data-analysis" class="btn btn-primary btn-lg px-4 me-2 pulse">
+          <i class="fas fa-chart-line me-2"></i>Explore Visualizations
+        </a>
+        <a href="#" class="btn btn-outline-light btn-lg px-4">
+          <i class="fas fa-download me-2"></i>Download Dataset
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="data-analysis">
+    <!-- Navigation -->
+    <ul class="nav nav-pills mb-4 justify-content-center" id="analysisTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="overview-tab" data-bs-toggle="pill" data-bs-target="#overview" type="button">
+          <i class="fas fa-globe me-2"></i>Overview
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="distribution-tab" data-bs-toggle="pill" data-bs-target="#distribution" type="button">
+          <i class="fas fa-chart-bar me-2"></i>Distributions
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="time-series-tab" data-bs-toggle="pill" data-bs-target="#time-series" type="button">
+          <i class="fas fa-wave-square me-2"></i>Time Series
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="dimensionality-tab" data-bs-toggle="pill" data-bs-target="#dimensionality" type="button">
+          <i class="fas fa-project-diagram me-2"></i>Dimensionality
+        </button>
+      </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content" id="analysisTabsContent">
+      <!-- Overview Tab -->
+      <div class="tab-pane fade show active" id="overview" role="tabpanel">
+        <h2 class="section-title animate-on-scroll slide-up"><i class="fas fa-globe"></i> Dataset Overview</h2>
+        
+        <div class="row animate-on-scroll slide-up">
+          <div class="col-md-6">
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <i class="fas fa-database me-2"></i> Dataset Statistics
+              </div>
+              <div class="card-body">
+                <div class="alert alert-info info-alert">
+                  <h5><i class="fas fa-info-circle me-2"></i>Key Metrics</h5>
+                  <ul class="fa-ul">
+                    <li><span class="fa-li"><i class="fas fa-star"></i></span><strong>Total Samples:</strong> 5,087</li>
+                    <li><span class="fa-li"><i class="fas fa-check-circle"></i></span><strong>Exoplanets:</strong> 37 (0.7%)</li>
+                    <li><span class="fa-li"><i class="fas fa-times-circle"></i></span><strong>Non-Exoplanets:</strong> 5,050 (99.3%)</li>
+                    <li><span class="fa-li"><i class="fas fa-ruler"></i></span><strong>Time Steps:</strong> 3,197 per sample</li>
+                  </ul>
+                </div>
+                <div class="alert alert-warning warning-alert mt-3">
+                  <i class="fas fa-exclamation-triangle me-2"></i>
+                  <strong>Severe Class Imbalance:</strong> The dataset contains 136× more non-exoplanet examples than confirmed exoplanets
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <i class="fas fa-tasks me-2"></i> Data Distribution
+              </div>
+              <div class="card-body">
+                <div class="chart-container">
+                  <img src="{% static 'images/ClassDistribution.png' %}" alt="Missing Values Heatmap" class="chart-img">
+                </div>
+                <p class="chart-caption">Heatmap showing missing values across the dataset (yellow indicates missing data).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row mt-4 animate-on-scroll slide-up">
+          <div class="col-md-12">
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <i class="fas fa-table me-2"></i> Sample Data
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead class="table-dark">
+                      <tr>
+                        <th>ID</th>
+                        <th>Label</th>
+                        <th>FLUX.1</th>
+                        <th>FLUX.2</th>
+                        <th>FLUX.3</th>
+                        <th>FLUX.4</th>
+                        <th>FLUX.5</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>KIC001</td>
+                        <td><span class="badge bg-danger">Exoplanet</span></td>
+                        <td>1.0023</td>
+                        <td>0.9987</td>
+                        <td>1.0012</td>
+                        <td>0.9978</td>
+                        <td>1.0034</td>
+                      </tr>
+                      <tr>
+                        <td>KIC002</td>
+                        <td><span class="badge bg-secondary">Non-Exoplanet</span></td>
+                        <td>1.0001</td>
+                        <td>1.0003</td>
+                        <td>0.9998</td>
+                        <td>1.0002</td>
+                        <td>0.9999</td>
+                      </tr>
+                      <tr>
+                        <td>KIC003</td>
+                        <td><span class="badge bg-secondary">Non-Exoplanet</span></td>
+                        <td>0.9989</td>
+                        <td>1.0012</td>
+                        <td>0.9995</td>
+                        <td>1.0008</td>
+                        <td>0.9987</td>
+                      </tr>
+                      <tr>
+                        <td>KIC004</td>
+                        <td><span class="badge bg-danger">Exoplanet</span></td>
+                        <td>1.0056</td>
+                        <td>0.9923</td>
+                        <td>1.0045</td>
+                        <td>0.9934</td>
+                        <td>1.0067</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Distributions Tab -->
+      <div class="tab-pane fade" id="distribution" role="tabpanel">
+        <h2 class="section-title animate-on-scroll slide-up"><i class="fas fa-chart-bar"></i> Data Distributions</h2>
+        
+        <div class="row animate-on-scroll slide-up">
+          <div class="col-md-6">
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <i class="fas fa-chart-pie me-2"></i> Class Distribution
+              </div>
+              <div class="card-body">
+                <div class="chart-container">
+                  <img src="{% static 'images/ClassDistributionAfterSmote.png' %}" alt="Class Distribution" class="chart-img">
+                </div>
+                <p class="chart-caption">Bar plot showing the severe imbalance between exoplanet and non-exoplanet classes.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <i class="fas fa-percentage me-2"></i> Statistical Features
+              </div>
+              <div class="card-body">
+                <div class="chart-container">
+                  <img src="{% static 'images/MeanFluxCurve.png' %}" alt="Mean Flux by Class" class="chart-img">
+                </div>
+                <p class="chart-caption">Mean flux values plotted for exoplanet and non-exoplanet classes.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row mt-4 animate-on-scroll slide-up">
+          <div class="col-md-6">
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <i class="fas fa-ruler-combined me-2"></i> Standard Deviation
+              </div>
+              <div class="card-body">
+                <div class="chart-container">
+                  <img src="{% static 'images/FluxStandardDeviation.png' %}" alt="STD Flux" class="chart-img">
+                </div>
+                <p class="chart-caption">Flux variability shown via standard deviation across time steps.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <i class="fas fa-arrows-alt-v me-2"></i> Flux Range
+              </div>
+              <div class="card-body">
+                <div class="chart-container">
+                  <img src="{% static 'images/FluxRange.png' %}" alt="Flux Range" class="chart-img">
+                </div>
+                <p class="chart-caption">Flux signal range (max-min) analysis across time steps.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Time Series Tab -->
+      <div class="tab-pane fade" id="time-series" role="tabpanel">
+        <h2 class="section-title animate-on-scroll slide-up"><i class="fas fa-wave-square"></i> Time Series Analysis</h2>
+        
+        <div class="row animate-on-scroll slide-up">
+          <div class="col-md-12">
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <i class="fas fa-chart-line me-2"></i> Sample Light Curves
+              </div>
+              <div class="card-body">
+                <div class="chart-container" style="height: 500px;">
+                  <img src="{% static 'images/FluxForThreeRandom.png' %}" alt="Flux Curves" class="chart-img">
+                </div>
+                <p class="chart-caption">Flux variation over time for randomly selected candidates (blue=non-exoplanet, red=exoplanet).</p>
+                <div class="alert alert-success success-alert mt-3">
+                  <i class="fas fa-lightbulb me-2"></i>
+                  <strong>Transit Detection:</strong> Exoplanet candidates show characteristic periodic dips in luminosity
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row mt-4 animate-on-scroll slide-up">
+          <div class="col-md-6">
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <i class="fas fa-project-diagram me-2"></i> Correlation Matrix
+              </div>
+              <div class="card-body">
+                <div class="chart-container">
+                  <img src="{% static 'images/CorrelationHeatmap.png' %}" alt="Correlation" class="chart-img">
+                </div>
+                <p class="chart-caption">Correlation between time-step flux values showing temporal patterns.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <i class="fas fa-random me-2"></i> Autocorrelation
+              </div>
+              <div class="card-body">
+                <div class="chart-container">
+                  <img src="{% static 'images/autocorrelation.png' %}" alt="Autocorrelation" class="chart-img">
+                </div>
+                <p class="chart-caption">Autocorrelation plot showing repeating patterns in the flux data.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Dimensionality Tab -->
+      <div class="tab-pane fade" id="dimensionality" role="tabpanel">
+        <h2 class="section-title animate-on-scroll slide-up"><i class="fas fa-project-diagram"></i> Dimensionality Reduction</h2>
+        
+        <div class="row animate-on-scroll slide-up">
+          <div class="col-md-6">
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <i class="fas fa-compress-alt me-2"></i> PCA Projection
+              </div>
+              <div class="card-body">
+                <div class="chart-container">
+                  <img src="{% static 'images/PCAProjection.png' %}" alt="PCA" class="chart-img">
+                </div>
+                <p class="chart-caption">2D representation of high-dimensional flux data using Principal Component Analysis.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <i class="fas fa-braille me-2"></i> t-SNE Visualization
+              </div>
+              <div class="card-body">
+                <div class="chart-container">
+                  <img src="{% static 'images/tsne_projection.png' %}" alt="t-SNE" class="chart-img">
+                </div>
+                <p class="chart-caption">Non-linear dimensionality reduction using t-SNE algorithm.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row mt-4 animate-on-scroll slide-up">
+          <div class="col-md-12">
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <i class="fas fa-cubes me-2"></i> UMAP Projection
+              </div>
+              <div class="card-body">
+                <div class="chart-container" style="height: 500px;">
+                  <img src="{% static 'images/umap_projection.png' %}" alt="UMAP" class="chart-img">
+                </div>
+                <p class="chart-caption">Uniform Manifold Approximation and Projection for high-dimensional data visualization.</p>
+                <div class="alert alert-info info-alert mt-3">
+                  <i class="fas fa-info-circle me-2"></i>
+                  <strong>Cluster Analysis:</strong> UMAP reveals potential clusters that may correspond to different types of exoplanet signatures
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/analysis.js' %}"></script>
+{% endblock %}

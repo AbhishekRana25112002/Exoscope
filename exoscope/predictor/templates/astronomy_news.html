@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Latest Astronomy News{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/news.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="news-container">
+  <div class="news-header">
+    <div class="header-content">
+      <h1><i class="fas fa-rocket"></i> Cosmic Discoveries</h1>
+      <p class="subtitle">Exploring the universe's latest wonders</p>
+    </div>
+    <div class="header-illustration">
+      <img src="{% static 'images/astronomy-illustration.svg' %}" alt="Astronomy illustration">
+    </div>
+  </div>
+
+  {% if error %}
+    <div class="alert-message">
+      <i class="fas fa-exclamation-triangle"></i>
+      <span>{{ error }}</span>
+    </div>
+  {% endif %}
+
+  <div class="news-controls">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" id="news-search" placeholder="Search news...">
+    </div>
+    <div class="sort-options">
+      <span>Sort by:</span>
+      <select id="sort-select">
+        <option value="newest">Newest First</option>
+        <option value="oldest">Oldest First</option>
+      </select>
+    </div>
+  </div>
+
+  {% if news_items %}
+    <div class="news-grid">
+      {% for item in news_items %}
+        {% if item.image_url %}
+          <div class="news-card" data-date="{{ item.published }}" data-title="{{ item.title|lower }}">
+            <div class="card-image">
+              <img src="{{ item.image_url }}" alt="{{ item.title }}" loading="lazy">
+              <div class="image-overlay"></div>
+            </div>
+            <div class="card-content">
+              <div class="card-meta">
+                <span class="card-date"><i class="far fa-calendar"></i> {{ item.published }}</span>
+                {% if item.source %}
+                  <span class="card-source">{{ item.source }}</span>
+                {% endif %}
+              </div>
+              <h3 class="card-title">
+                <a href="{{ item.link }}" target="_blank" rel="noopener">{{ item.title }}</a>
+              </h3>
+              <p class="card-summary">{{ item.summary }}</p>
+              <a href="{{ item.link }}" class="card-action" target="_blank" rel="noopener">
+                Read Article <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if not news_items|length %}
+      <div class="empty-state">
+        <div class="empty-illustration">
+          <img src="{% static 'images/no-results.svg' %}" alt="No results">
+        </div>
+        <h3>No articles with images available</h3>
+        <p>We couldn't find any news articles with images to display</p>
+      </div>
+    {% endif %}
+  {% else %}
+    {% if not error %}
+      <div class="empty-state">
+        <div class="empty-illustration">
+          <img src="{% static 'images/no-news.svg' %}" alt="No news">
+        </div>
+        <h3>No news available</h3>
+        <p>Please check back later for cosmic updates</p>
+      </div>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Search functionality
+  const searchInput = document.getElementById('news-search');
+  const newsCards = document.querySelectorAll('.news-card');
+  
+  searchInput.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    
+    newsCards.forEach(card => {
+      const title = card.dataset.title;
+      if (title.includes(searchTerm)) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+  
+  // Sort functionality
+  const sortSelect = document.getElementById('sort-select');
+  
+  sortSelect.addEventListener('change', function() {
+    const container = document.querySelector('.news-grid');
+    const cards = Array.from(document.querySelectorAll('.news-card'));
+    
+    cards.sort((a, b) => {
+      const dateA = new Date(a.dataset.date);
+      const dateB = new Date(b.dataset.date);
+      
+      if (this.value === 'newest') {
+        return dateB - dateA;
+      } else {
+        return dateA - dateB;
+      }
+    });
+    
+    // Re-append sorted cards
+    cards.forEach(card => container.appendChild(card));
+  });
+  
+  // Add hover effect to cards
+  newsCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      this.querySelector('.image-overlay').style.opacity = '0.2';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.querySelector('.image-overlay').style.opacity = '0.5';
+    });
+  });
+});
+</script>
+{% endblock %}

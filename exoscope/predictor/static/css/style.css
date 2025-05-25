@@ -1,0 +1,96 @@
+/* Hero Section */
+    .hero-section {
+        padding: 5rem 0;
+        background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+        color: white;
+    }
+    
+    .hero-image {
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        transition: transform 0.3s ease;
+    }
+    
+    .hero-image:hover {
+        transform: scale(1.03);
+    }
+    
+    /* Feature Cards */
+    .feature-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: none;
+        overflow: hidden;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+    
+    .feature-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        color: white;
+        font-size: 1.5rem;
+    }
+    
+    .feature-list {
+        list-style: none;
+        padding-left: 0;
+    }
+    
+    .feature-list li {
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Discovery Cards */
+    .discovery-card {
+        transition: transform 0.3s ease;
+        border: none;
+        background: rgba(255,255,255,0.1);
+    }
+    
+    .discovery-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .discovery-card .card-img-top {
+        height: 180px;
+        object-fit: cover;
+    }
+    
+    /* Blog Cards */
+    .blog-card {
+        transition: transform 0.3s ease;
+        border: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .blog-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .blog-card .card-img-top {
+        height: 180px;
+        object-fit: cover;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .hero-image {
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            margin-bottom: 1.5rem;
+        }
+    }

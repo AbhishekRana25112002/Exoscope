@@ -1,0 +1,107 @@
+/* Astronomy Widgets Styling */
+.astronomy-container {
+    background-color: #f8f9fa;
+}
+
+.astronomy-map {
+    height: 500px;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.sky-map-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+.sky-map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.tracker-card {
+    overflow: hidden;
+}
+
+.iss-data .data-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.iss-data .data-label {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.iss-data .data-value {
+    font-family: monospace;
+    color: #3498db;
+}
+
+.passes-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.pass-item {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border-left: 3px solid #3498db;
+}
+
+.pass-time {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.pass-details {
+    font-size: 0.85rem;
+    color: #7f8c8d;
+}
+
+/* Fullscreen styles */
+.fullscreen-map {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 9999;
+    background: white;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+}
+
+.fullscreen-map iframe {
+    border-radius: 0 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .astronomy-map {
+        height: 350px;
+    }
+    
+    .iss-data .data-item {
+        flex-direction: column;
+    }
+    
+    .iss-data .data-value {
+        margin-top: 0.25rem;
+    }
+}

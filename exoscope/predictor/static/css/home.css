@@ -1,0 +1,36 @@
+.chart-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+.chart-card:hover {
+  transform: translateY(-6px);
+}
+
+.chart-card-header {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 1rem;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(52,152,219,0.4); }
+  70% { box-shadow: 0 0 0 15px rgba(52,152,219,0); }
+  100% { box-shadow: 0 0 0 0 rgba(52,152,219,0); }
+}
