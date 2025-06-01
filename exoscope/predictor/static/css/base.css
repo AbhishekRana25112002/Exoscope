@@ -1,0 +1,163 @@
+
+    :root {
+      --primary-color: #6c63ff;
+      --secondary-color: #4d44db;
+      --dark-color: #1a1a2e;
+      --light-color: #f8f9fa;
+      --accent-color: #00b4d8;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+    }
+    
+    .navbar {
+      background: linear-gradient(135deg, var(--dark-color) 0%, #16213e 100%);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+      padding: 0.8rem 0;
+    }
+    
+    .navbar-brand {
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: white !important;
+      transition: all 0.3s ease;
+    }
+    
+    .navbar-brand:hover {
+      transform: scale(1.03);
+    }
+    
+    .nav-link {
+      font-weight: 500;
+      padding: 0.5rem 1rem !important;
+      margin: 0 0.2rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      color: rgba(255, 255, 255, 0.85) !important;
+    }
+    
+    .nav-link:hover, .nav-link.active {
+      color: white !important;
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .navbar-toggler {
+      border: none;
+    }
+    
+    .navbar-toggler:focus {
+      box-shadow: none;
+    }
+    
+    .auth-buttons .btn {
+      margin-left: 0.5rem;
+      font-weight: 500;
+      border-radius: 4px;
+    }
+    
+    .btn-login {
+      background-color: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+    }
+    
+    .btn-login:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .btn-signup {
+      background-color: var(--accent-color);
+      border: none;
+      color: white;
+    }
+    
+    .btn-signup:hover {
+      background-color: #0096c7;
+      color: white;
+    }
+    
+    footer {
+      background: linear-gradient(135deg, var(--dark-color) 0%, #16213e 100%);
+      color: white;
+      padding: 3rem 0 1.5rem;
+    }
+    
+    .footer-logo {
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    
+    .footer-links h5 {
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .footer-links h5::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 40px;
+      height: 3px;
+      background: var(--accent-color);
+    }
+    
+    .footer-links ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+      padding-left: 5px;
+    }
+    
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: white;
+      margin-right: 0.8rem;
+      transition: all 0.3s ease;
+    }
+    
+    .social-icons a:hover {
+      background-color: var(--accent-color);
+      transform: translateY(-3px);
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .footer-links {
+        margin-bottom: 1.5rem;
+      }
+    }
+  

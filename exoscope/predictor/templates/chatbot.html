@@ -4,15 +4,16 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 {% endblock %}
 
 {% block content %}
 <div class="chatbot-container" data-chatbot-url="{% url 'space_llm_chatbot' %}">
   <div class="chatbot-header">
     <div class="header-content">
-      <i class="fas fa-robot"></i>
+      <i class="fas fa-rocket"></i>
       <h1>Space Explorer AI</h1>
-      <p>Ask me anything about space, astronomy, and astrophysics</p>
+      <p>Your guide to the cosmos — ask about stars, planets, and more!</p>
     </div>
   </div>
   
@@ -28,7 +29,7 @@
     
     <div class="chat-input">
       <form id="chat-form">
-        <input type="text" id="user-input" placeholder="Type your space-related question..." autocomplete="off" required>
+        <input type="text" id="user-input" placeholder="Ask about the universe..." autocomplete="off" required>
         <button type="submit" id="send-button">
           <i class="fas fa-paper-plane"></i>
         </button>
@@ -39,7 +40,6 @@
 </div>
 
 <script>
-  // Pass CSRF token to JavaScript
   const CSRF_TOKEN = "{{ csrf_token }}";
 </script>
 {% endblock %}

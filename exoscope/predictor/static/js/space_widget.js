@@ -2,24 +2,30 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize Cesium 3D Earth
     initCesium();
     
-    // NASA Media Gallery
+    // Setup NASA media gallery
     setupNasaGallery();
     
-    // Mars Rover Photos
-    setupMarsGallery();
+    // Setup Mars rover photos
+    setupMarsRover();
     
-    // Light Pollution Map Refresh
-    document.getElementById('refresh-light-map').addEventListener('click', function() {
-        const iframe = document.querySelector('#light-pollution iframe');
-        iframe.src = iframe.src;
-    });
+    // Event listeners
+    document.getElementById('reset-view').addEventListener('click', resetCesiumView);
+    document.getElementById('refresh-light-map').addEventListener('click', refreshLightMap);
+    document.getElementById('random-nasa').addEventListener('click', fetchRandomNasaMedia);
+    document.getElementById('nasa-search-btn').addEventListener('click', searchNasaMedia);
+    document.getElementById('fetch-mars').addEventListener('click', fetchMarsPhotos);
+    document.getElementById('rover-select').addEventListener('change', updateRoverSelection);
 });
 
+// Cesium 3D Earth Functions
+let viewer;
 function initCesium() {
     try {
+        // Your Cesium ion access token
         Cesium.Ion.defaultAccessToken = CESIUM_TOKEN;
         
-        const viewer = new Cesium.Viewer('cesiumContainer', {
+        // Initialize the Cesium Viewer
+        viewer = new Cesium.Viewer('cesiumContainer', {
             terrainProvider: Cesium.createWorldTerrain(),
             timeline: false,
             animation: false,
@@ -30,7 +36,9 @@ function initCesium() {
             geocoder: false,
             infoBox: false,
             selectionIndicator: false,
-            shouldAnimate: true
+            shouldAnimate: true,
+            skyAtmosphere: false,
+            imageryProvider: new Cesium.IonImageryProvider({ assetId: 3845 }) // Use a high-res basemap
         });
         
         // Enable lighting effects
@@ -39,183 +47,164 @@ function initCesium() {
         // Remove loading overlay
         document.querySelector('.cesium-loading').style.display = 'none';
         
-        // Reset view button
-        document.getElementById('reset-view').addEventListener('click', function() {
-            viewer.camera.flyTo({
-                destination: Cesium.Cartesian3.fromDegrees(0, 0, 20000000),
-                orientation: {
-                    heading: Cesium.Math.toRadians(0),
-                    pitch: Cesium.Math.toRadians(-90),
-                    roll: 0.0
-                }
-            });
+        // Set initial view to show the whole Earth
+        viewer.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(0, 0, 20000000),
+            orientation: {
+                heading: 0.0,
+                pitch: -Cesium.Math.PI_OVER_TWO,
+                roll: 0.0
+            }
         });
-        
     } catch (error) {
         console.error('Error initializing Cesium:', error);
-        document.querySelector('.cesium-loading p').textContent = 'Failed to load 3D Earth. Please refresh the page.';
+        document.querySelector('.cesium-loading p').textContent = 'Failed to load 3D Earth. Please try refreshing the page.';
     }
 }
 
+function resetCesiumView() {
+    if (viewer) {
+        viewer.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(0, 0, 20000000),
+            orientation: {
+                heading: 0.0,
+                pitch: -Cesium.Math.PI_OVER_TWO,
+                roll: 0.0
+            }
+        });
+    }
+}
+
+// Light Pollution Map Functions
+function refreshLightMap() {
+    const iframe = document.querySelector('#light-pollution iframe');
+    iframe.src = iframe.src; // Simple refresh by reloading the iframe
+}
+
+// NASA Media Gallery Functions
 function setupNasaGallery() {
-    const nasaSearch = document.getElementById('nasa-search');
-    const nasaSearchBtn = document.getElementById('nasa-search-btn');
-    const nasaGallery = document.getElementById('nasa-gallery');
-    const randomNasaBtn = document.getElementById('random-nasa');
-    
-    const searchTerms = ['earth', 'mars', 'jupiter', 'nebula', 'galaxy', 'supernova', 'black hole', 'satellite'];
-    
-    // Search function
-    function searchNasaMedia(query) {
-        nasaGallery.innerHTML = '<div class="col-12 text-center py-4"><div class="spinner-border text-primary"></div><p class="mt-2">Searching NASA media...</p></div>';
-        
-        fetch(`https://images-api.nasa.gov/search?q=${encodeURIComponent(query)}&media_type=image`)
-            .then(response => response.json())
-            .then(data => {
-                nasaGallery.innerHTML = '';
-                
-                if (data.collection.items.length === 0) {
-                    nasaGallery.innerHTML = '<div class="col-12 text-center py-4"><p>No results found. Try a different search term.</p></div>';
-                    return;
-                }
-                
-                data.collection.items.slice(0, 12).forEach(item => {
-                    const card = createMediaCard(item);
-                    nasaGallery.appendChild(card);
-                });
-                
-                // Initialize Masonry layout
-                new Masonry(nasaGallery, {
-                    itemSelector: '.media-card',
-                    columnWidth: 300,
-                    gutter: 20,
-                    fitWidth: true
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching NASA media:', error);
-                nasaGallery.innerHTML = '<div class="col-12 text-center py-4"><p>Failed to load NASA media. Please try again later.</p></div>';
-            });
-    }
-    
-    // Create media card
-    function createMediaCard(item) {
-        const card = document.createElement('div');
-        card.className = 'media-card';
-        
-        const imgSrc = item.links ? item.links[0].href : '';
-        const title = item.data ? item.data[0].title : 'Untitled';
-        const date = item.data ? new Date(item.data[0].date_created).toLocaleDateString() : 'Unknown date';
-        const description = item.data ? item.data[0].description : 'No description available';
-        
-        card.innerHTML = `
-            <img src="${imgSrc}" alt="${title}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Available'">
-            <div class="media-card-body">
-                <h3 class="media-card-title">${title}</h3>
-                <div class="media-card-date">${date}</div>
-                <p class="media-card-description">${description}</p>
-            </div>
-        `;
-        
-        return card;
-    }
-    
-    // Event listeners
-    nasaSearchBtn.addEventListener('click', () => {
-        if (nasaSearch.value.trim()) {
-            searchNasaMedia(nasaSearch.value.trim());
-        }
-    });
-    
-    nasaSearch.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && nasaSearch.value.trim()) {
-            searchNasaMedia(nasaSearch.value.trim());
-        }
-    });
-    
-    randomNasaBtn.addEventListener('click', () => {
-        const randomTerm = searchTerms[Math.floor(Math.random() * searchTerms.length)];
-        nasaSearch.value = randomTerm;
-        searchNasaMedia(randomTerm);
-    });
-    
-    // Initial search
-    searchNasaMedia('earth');
+    // Load some initial content
+    fetchRandomNasaMedia();
 }
 
-function setupMarsGallery() {
-    const fetchMarsBtn = document.getElementById('fetch-mars');
-    const marsGallery = document.getElementById('mars-gallery');
-    const roverSelect = document.getElementById('rover-select');
-    const currentRover = document.getElementById('current-rover');
-    
-    // Fetch Mars photos
-    function fetchMarsPhotos(rover) {
-        marsGallery.innerHTML = '<div class="col-12 text-center py-4"><div class="spinner-border text-primary"></div><p class="mt-2">Loading Mars photos...</p></div>';
+async function fetchRandomNasaMedia() {
+    try {
+        const gallery = document.getElementById('nasa-gallery');
+        gallery.innerHTML = '<div class="text-center py-5"><div class="spinner-border text-primary"></div><p>Loading NASA media...</p></div>';
         
-        fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/latest_photos?api_key=${NASA_API_KEY}`)
-            .then(response => response.json())
-            .then(data => {
-                marsGallery.innerHTML = '';
-                
-                if (!data.latest_photos || data.latest_photos.length === 0) {
-                    marsGallery.innerHTML = '<div class="col-12 text-center py-4"><p>No photos available for this rover.</p></div>';
-                    return;
-                }
-                
-                data.latest_photos.slice(0, 12).forEach(photo => {
-                    const card = createMarsPhotoCard(photo);
-                    marsGallery.appendChild(card);
-                });
-                
-                // Initialize Masonry layout
-                new Masonry(marsGallery, {
-                    itemSelector: '.media-card',
-                    columnWidth: 300,
-                    gutter: 20,
-                    fitWidth: true
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching Mars photos:', error);
-                marsGallery.innerHTML = '<div class="col-12 text-center py-4"><p>Failed to load Mars photos. Please try again later.</p></div>';
-            });
+        const response = await fetch(`https://images-api.nasa.gov/search?media_type=image&page_size=12&q=space`);
+        const data = await response.json();
+        
+        displayNasaMedia(data.collection.items);
+    } catch (error) {
+        console.error('Error fetching NASA media:', error);
+        document.getElementById('nasa-gallery').innerHTML = '<div class="alert alert-danger">Failed to load NASA media. Please try again later.</div>';
+    }
+}
+
+async function searchNasaMedia() {
+    try {
+        const query = document.getElementById('nasa-search').value.trim();
+        if (!query) return;
+        
+        const gallery = document.getElementById('nasa-gallery');
+        gallery.innerHTML = '<div class="text-center py-5"><div class="spinner-border text-primary"></div><p>Searching NASA media...</p></div>';
+        
+        const response = await fetch(`https://images-api.nasa.gov/search?media_type=image&page_size=12&q=${encodeURIComponent(query)}`);
+        const data = await response.json();
+        
+        displayNasaMedia(data.collection.items);
+    } catch (error) {
+        console.error('Error searching NASA media:', error);
+        document.getElementById('nasa-gallery').innerHTML = '<div class="alert alert-danger">Failed to search NASA media. Please try again later.</div>';
+    }
+}
+
+function displayNasaMedia(items) {
+    const gallery = document.getElementById('nasa-gallery');
+    
+    if (!items || items.length === 0) {
+        gallery.innerHTML = '<div class="alert alert-info">No media found matching your criteria.</div>';
+        return;
     }
     
-    // Create Mars photo card
-    function createMarsPhotoCard(photo) {
-        const card = document.createElement('div');
-        card.className = 'media-card';
+    gallery.innerHTML = '';
+    
+    items.forEach(item => {
+        const mediaCard = document.createElement('div');
+        mediaCard.className = 'media-card';
         
-        const imgSrc = photo.img_src;
-        const title = `Sol ${photo.sol}: ${photo.camera.full_name}`;
-        const date = new Date(photo.earth_date).toLocaleDateString();
+        const imgSrc = item.links ? item.links[0].href : 'https://via.placeholder.com/300x200?text=NASA+Image';
+        const title = item.data[0].title || 'Untitled';
+        const date = item.data[0].date_created || 'Date unknown';
+        const description = item.data[0].description || 'No description available.';
         
-        card.innerHTML = `
+        mediaCard.innerHTML = `
             <img src="${imgSrc}" alt="${title}">
             <div class="media-card-body">
                 <h3 class="media-card-title">${title}</h3>
-                <div class="media-card-date">${date}</div>
-                <p class="media-card-description">Taken by ${photo.rover.name} rover on Martian day (sol) ${photo.sol}.</p>
+                <p class="media-card-date">${date.split('T')[0]}</p>
+                <p class="media-card-desc">${description.substring(0, 100)}${description.length > 100 ? '...' : ''}</p>
             </div>
         `;
         
-        return card;
+        gallery.appendChild(mediaCard);
+    });
+}
+
+// Mars Rover Photos Functions
+let currentRover = 'curiosity';
+function setupMarsRover() {
+    fetchMarsPhotos();
+}
+
+function updateRoverSelection() {
+    currentRover = document.getElementById('rover-select').value;
+    document.getElementById('current-rover').textContent = currentRover.charAt(0).toUpperCase() + currentRover.slice(1);
+    fetchMarsPhotos();
+}
+
+async function fetchMarsPhotos() {
+    try {
+        const gallery = document.getElementById('mars-gallery');
+        gallery.innerHTML = '<div class="text-center py-5"><div class="spinner-border text-primary"></div><p>Loading Mars rover photos...</p></div>';
+        
+        const response = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${currentRover}/latest_photos?api_key=${NASA_API_KEY}`);
+        const data = await response.json();
+        
+        displayMarsPhotos(data.latest_photos);
+    } catch (error) {
+        console.error('Error fetching Mars photos:', error);
+        document.getElementById('mars-gallery').innerHTML = '<div class="alert alert-danger">Failed to load Mars photos. Please try again later.</div>';
+    }
+}
+
+function displayMarsPhotos(photos) {
+    const gallery = document.getElementById('mars-gallery');
+    
+    if (!photos || photos.length === 0) {
+        gallery.innerHTML = '<div class="alert alert-info">No photos available for this rover.</div>';
+        return;
     }
     
-    // Event listeners
-    fetchMarsBtn.addEventListener('click', () => {
-        const rover = roverSelect.value;
-        currentRover.textContent = rover.charAt(0).toUpperCase() + rover.slice(1);
-        fetchMarsPhotos(rover);
-    });
+    // Limit to 12 photos for better performance
+    const limitedPhotos = photos.slice(0, 12);
     
-    roverSelect.addEventListener('change', () => {
-        const rover = roverSelect.value;
-        currentRover.textContent = rover.charAt(0).toUpperCase() + rover.slice(1);
-        fetchMarsPhotos(rover);
-    });
+    gallery.innerHTML = '';
     
-    // Initial load
-    fetchMarsPhotos('curiosity');
+    limitedPhotos.forEach(photo => {
+        const mediaCard = document.createElement('div');
+        mediaCard.className = 'media-card';
+        
+        mediaCard.innerHTML = `
+            <img src="${photo.img_src}" alt="Mars rover photo">
+            <div class="media-card-body">
+                <h3 class="media-card-title">${photo.rover.name} Rover</h3>
+                <p class="media-card-date">Sol ${photo.sol} - ${photo.earth_date}</p>
+                <p class="media-card-desc">Camera: ${photo.camera.full_name}</p>
+            </div>
+        `;
+        
+        gallery.appendChild(mediaCard);
+    });
 }

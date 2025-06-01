@@ -1,322 +1,399 @@
 {% extends 'base.html' %}
-{%load static %}
+{% load static %}
+
+{% block title %}Exoplanet Analytics - Journey Beyond the Stars{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(240, 245, 255, 0.88)), url('https://source.unsplash.com/1600x900/?space') no-repeat center center/cover;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 0, 50, 0.15), transparent);
+    z-index: 1;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+  }
+  .hero-section h1 {
+    font-family: 'Space Mono', monospace;
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  }
+  .hero-section p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem;
+    color: #2c3e50;
+    margin-bottom: 2.5rem;
+  }
+  .hero-section .btn {
+    font-family: 'Roboto', sans-serif;
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  }
+  .hero-image {
+    max-width: 800px;
+    margin: 2.5rem auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+  .hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 20px;
+  }
+
+  /* Features Section */
+  .features-section {
+    background: #f9fbff;
+    padding: 100px 0;
+  }
+  .features-section h2 {
+    font-family: 'Space Mono', monospace;
+    font-size: 3rem;
+    color: #1a1a1a;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .features-section p.lead {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    color: #555;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+  }
+  .features-section .card {
+    border: none;
+    border-radius: 20px;
+    background: #fff;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    overflow: hidden;
+    text-align: left;
+  }
+  .features-section .card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  }
+  .features-section .card-img-top {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 1px solid #e9ecef;
+  }
+  .features-section .card-body {
+    padding: 2.5rem;
+  }
+  .features-section .card-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: #007bff;
+    margin-bottom: 1rem;
+  }
+  .features-section .card-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    color: #4a4a4a;
+    line-height: 1.6;
+  }
+  .features-section .btn {
+    font-family: 'Poppins', sans-serif;
+    border-radius: 25px;
+    padding: 10px 25px;
+  }
+
+  /* Cosmos Section */
+  .cosmos-section {
+    background: #fff;
+    padding: 100px 0;
+    text-align: center;
+  }
+  .cosmos-section h2 {
+    font-family: 'Space Mono', monospace;
+    font-size: 2.8rem;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+  }
+  .cosmos-section p.lead {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+  }
+  .cosmos-section .card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
+  .cosmos-section .card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+  }
+  .cosmos-section .card-body {
+    padding: 2rem;
+  }
+  .cosmos-section .card-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    color: #007bff;
+  }
+  .cosmos-section .btn {
+    font-family: 'Roboto', sans-serif;
+    padding: 10px 25px;
+    border-radius: 50px;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(90deg, #007bff, #00b7eb);
+    color: #fff;
+    padding: 80px 0;
+    text-align: center;
+    border-radius: 0 0 20px 20px;
+  }
+  .cta-section h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .cta-section p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-section .btn {
+    font-family: 'Roboto', sans-serif;
+    padding: 15px 35px;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    transition: transform 0.3s ease;
+  }
+  .cta-section .btn:hover {
+    transform: scale(1.1);
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .hero-section h1 {
+      font-size: 3rem;
+    }
+    .hero-section p {
+      font-size: 1.3rem;
+    }
+    .hero-image {
+      max-width: 90%;
+    }
+    .features-section h2 {
+      font-size: 2.2rem;
+    }
+    .features-section .card-img-top {
+      height: 180px;
+    }
+    .cosmos-section .card-img-top {
+      height: 150px;
+    }
+  }
+  @media (max-width: 576px) {
+    .hero-section h1 {
+      font-size: 2.2rem;
+    }
+    .hero-section p {
+      font-size: 1.1rem;
+    }
+    .features-section .card-title {
+      font-size: 1.4rem;
+    }
+    .cta-section h3 {
+      font-size: 2rem;
+    }
+  }
+</style>
+{% endblock %}
+
 {% block content %}
 <!-- Hero Section -->
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 <section class="hero-section">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <h1 class="display-4 fw-bold mb-4">Discover New Worlds</h1>
-                <p class="lead mb-4">Exploring exoplanet detection and habitability prediction using NASA's Kepler dataset through advanced machine learning techniques.</p>
-                <div class="d-flex gap-3">
-                    <a href="#features" class="btn btn-primary btn-lg px-4">Explore Features</a>
-                    <a href="#" class="btn btn-outline-light btn-lg px-4">View Data Analysis</a>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <img src="images/exoplanet-hero.png" alt="Exoplanet Visualization" class="img-fluid hero-image">
-            </div>
-        </div>
+  <div class="hero-content container">
+    <h1 class="animate__animated animate__fadeInDown">Exoplanet Analytics: Your Gateway to the Cosmos</h1>
+    <p class="animate__animated animate__fadeInUp">Embark on an interstellar adventure to uncover the secrets of exoplanets, connect with fellow space enthusiasts, and explore the universe through cutting-edge tools and stunning visuals.</p>
+    <a href="{% url 'analysis' %}" class="btn btn-primary animate__animated animate__pulse animate__infinite">Begin Your Journey</a>
+    <div class="hero-image animate__animated animate__zoomIn">
+      <img src="https://unsplash.com/photos/a-galaxy-in-space-zIUT8p0T9-A" alt="Vibrant exoplanet with glowing rings" class="img-fluid">
     </div>
-</section>
-
-<!-- Project Introduction -->
-<section class="py-5 bg-light" id="about">
-    <div class="container">
-        <div class="row justify-content-center mb-5">
-            <div class="col-lg-8 text-center">
-                <h2 class="display-5 fw-bold mb-3">About Our Project</h2>
-                <p class="lead">Harnessing the power of NASA's Kepler mission data to push the boundaries of exoplanet discovery and habitability assessment.</p>
-            </div>
-        </div>
-        <div class="row g-4">
-            <!-- Card 1 -->
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center p-4">
-                        <div class="feature-icon bg-primary bg-gradient mb-3">
-                            <i class="fas fa-satellite"></i>
-                        </div>
-                        <h3>Kepler Mission Data</h3>
-                        <p class="text-muted">Utilizing over 4 years of photometric data from NASA's Kepler spacecraft, monitoring 150,000+ stars for planetary transits.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Card 2 -->
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center p-4">
-                        <div class="feature-icon bg-success bg-gradient mb-3">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <h3>Machine Learning Models</h3>
-                        <p class="text-muted">Advanced CNN and ANN architectures trained to detect exoplanet signatures with 99.6% accuracy and predict habitability potential.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Card 3 -->
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center p-4">
-                        <div class="feature-icon bg-warning bg-gradient mb-3">
-                            <i class="fas fa-globe-americas"></i>
-                        </div>
-                        <h3>Habitability Prediction</h3>
-                        <p class="text-muted">Analyzing planetary characteristics to assess potential for liquid water and Earth-like conditions.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </section>
 
 <!-- Features Section -->
-<section class="py-5" id="features">
-    <div class="container">
-        <div class="row justify-content-center mb-5">
-            <div class="col-lg-8 text-center">
-                <h2 class="display-5 fw-bold mb-3">Explore Our Features</h2>
-                <p class="lead">Interactive tools and visualizations to bring exoplanet science to your fingertips.</p>
-            </div>
+<section class="features-section">
+  <div class="container">
+    <h2 class="animate__animated animate__fadeIn">Unleash Your Cosmic Curiosity</h2>
+    <p class="lead animate__animated animate__fadeIn">Discover a universe of knowledge with our suite of tools and resources designed for astronomy lovers and explorers.</p>
+    <div class="row">
+      <!-- APOD -->
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card animate__animated animate__fadeInLeft">
+          <img src="https://source.unsplash.com/400x220/?nebula" class="card-img-top" alt="NASA APOD">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-image me-2"></i>NASA’s Astronomy Picture of the Day</h5>
+            <p class="card-text">Immerse yourself in the awe-inspiring beauty of the cosmos with NASA’s daily images, capturing nebulae, galaxies, and distant stars in breathtaking detail.</p>
+            <a href="{% url 'apod' %}" class="btn btn-outline-primary">Explore APOD</a>
+          </div>
         </div>
-        <div class="row g-4">
-            <!-- Data Visualization -->
-            <div class="col-lg-6">
-                <div class="card feature-card h-100">
-                    <div class="row g-0">
-                        <div class="col-md-5">
-                            <img src="images/data-viz.jpg" class="img-fluid rounded-start" alt="Data Visualization">
-                        </div>
-                        <div class="col-md-7">
-                            <div class="card-body">
-                                <h3 class="card-title">Data Visualization & Analysis</h3>
-                                <p class="card-text">Interactive exploration of Kepler light curves, model performance metrics, and exoplanet characteristics.</p>
-                                <ul class="feature-list">
-                                    <li><i class="fas fa-chart-line text-primary"></i> Light curve analysis</li>
-                                    <li><i class="fas fa-project-diagram text-primary"></i> Model performance metrics</li>
-                                    <li><i class="fas fa-star text-primary"></i> Exoplanet catalog browser</li>
-                                </ul>
-                                <a href="#" class="btn btn-outline-primary mt-2">Explore Data</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Space Blog -->
-            <div class="col-lg-6">
-                <div class="card feature-card h-100">
-                    <div class="row g-0">
-                        <div class="col-md-5">
-                            <img src="images/space-blog.jpg" class="img-fluid rounded-start" alt="Space Blog">
-                        </div>
-                        <div class="col-md-7">
-                            <div class="card-body">
-                                <h3 class="card-title">Space Science Blog</h3>
-                                <p class="card-text">Insights from astronomers, data scientists, and space enthusiasts about exoplanet research and discoveries.</p>
-                                <ul class="feature-list">
-                                    <li><i class="fas fa-user-astronaut text-primary"></i> Expert contributions</li>
-                                    <li><i class="fas fa-newspaper text-primary"></i> Latest research summaries</li>
-                                    <li><i class="fas fa-comments text-primary"></i> Community discussions</li>
-                                </ul>
-                                <a href="#" class="btn btn-outline-primary mt-2">Read Articles</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Live Tracking -->
-            <div class="col-lg-6">
-                <div class="card feature-card h-100">
-                    <div class="row g-0">
-                        <div class="col-md-5">
-                            <img src="images/iss-tracking.jpg" class="img-fluid rounded-start" alt="ISS Tracking">
-                        </div>
-                        <div class="col-md-7">
-                            <div class="card-body">
-                                <h3 class="card-title">Live Space Tracking</h3>
-                                <p class="card-text">Real-time orbital tracking and astronomy tools for space enthusiasts.</p>
-                                <ul class="feature-list">
-                                    <li><i class="fas fa-satellite text-primary"></i> ISS live position</li>
-                                    <li><i class="fas fa-map text-primary"></i> Interactive sky maps</li>
-                                    <li><i class="fas fa-globe text-primary"></i> Solar system simulator</li>
-                                </ul>
-                                <a href="#" class="btn btn-outline-primary mt-2">Track Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Coming Soon -->
-            <div class="col-lg-6">
-                <div class="card feature-card h-100">
-                    <div class="row g-0">
-                        <div class="col-md-5">
-                            <img src="images/coming-soon.jpg" class="img-fluid rounded-start" alt="Coming Soon">
-                        </div>
-                        <div class="col-md-7">
-                            <div class="card-body">
-                                <h3 class="card-title">More Exciting Features</h3>
-                                <p class="card-text">We're constantly expanding our platform with new tools and resources.</p>
-                                <ul class="feature-list">
-                                    <li><i class="fas fa-rocket text-primary"></i> Exoplanet discovery alerts</li>
-                                    <li><i class="fas fa-vr-cardboard text-primary"></i> 3D planetary system viewer</li>
-                                    <li><i class="fas fa-users text-primary"></i> Citizen science projects</li>
-                                </ul>
-                                <button class="btn btn-outline-secondary mt-2" disabled>Coming Soon</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <!-- Blogs -->
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card animate__animated animate__fadeInUp">
+          <img src="https://source.unsplash.com/400x220/?telescope" class="card-img-top" alt="Space Blogs">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-blog me-2"></i>Community Space Blogs</h5>
+            <p class="card-text">Engage with a passionate community of stargazers, sharing insights, discoveries, and stories about exoplanets and the wonders of the universe.</p>
+            <a href="{% url 'blogs' %}" class="btn btn-outline-primary">Join the Discussion</a>
+          </div>
         </div>
+      </div>
+      <!-- Widgets -->
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card animate__animated animate__fadeInRight">
+          <img src="https://source.unsplash.com/400x220/?universe" class="card-img-top" alt="Astronomy Widgets">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-globe me-2"></i>Interactive Astronomy Widgets</h5>
+            <p class="card-text">Navigate the stars with dynamic 3D visualizations and Cesium-powered tools, bringing the cosmos to your fingertips.</p>
+            <a href="{% url 'widgets' %}" class="btn btn-outline-primary">Interact Now</a>
+          </div>
+        </div>
+      </div>
+      <!-- Chatbot -->
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card animate__animated animate__fadeInLeft">
+          <img src="https://source.unsplash.com/400x220/?robot" class="card-img-top" alt="Space Chatbot">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-robot me-2"></i>AI-Powered Space Chatbot</h5>
+            <p class="card-text">Ask our intelligent chatbot about black holes, exoplanets, or NASA missions, and get instant answers to fuel your curiosity.</p>
+            <a href="{% url 'chatbot_page' %}" class="btn btn-outline-primary">Start Chatting</a>
+          </div>
+        </div>
+      </div>
+      <!-- News -->
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card animate__animated animate__fadeInUp">
+          <img src="https://source.unsplash.com/400x220/?rocket" class="card-img-top" alt="Space News">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-newspaper me-2"></i>Latest Space News</h5>
+            <p class="card-text">Stay ahead of the curve with real-time updates on exoplanet discoveries, rocket launches, and breakthroughs in astronomy.</p>
+            <a href="{% url 'astronomy_news' %}" class="btn btn-outline-primary">Read News</a>
+          </div>
+        </div>
+      </div>
+      <!-- Analysis -->
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card animate__animated animate__fadeInRight">
+          <img src="https://source.unsplash.com/400x220/?data" class="card-img-top" alt="Data Analysis">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-chart-line me-2"></i>Exoplanet Data Analysis</h5>
+            <p class="card-text">Uncover hidden patterns in exoplanet data with powerful analytical tools, designed for researchers and enthusiasts alike.</p>
+            <a href="{% url 'analysis' %}" class="btn btn-outline-primary">Analyze Now</a>
+          </div>
+        </div>
+      </div>
     </div>
-</section>
-<!-- Recent Discoveries -->
-<section class="py-5 bg-dark text-white">
-    <div class="container">
-        <div class="row justify-content-center mb-5">
-            <div class="col-lg-8 text-center">
-                <h2 class="display-5 fw-bold mb-3">Recent Discoveries</h2>
-                <p class="lead">Highlighting the most interesting exoplanets identified by our models</p>
-            </div>
-        </div>
-
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card discovery-card h-100">
-                    <img src="images/exoplanet1.jpg" class="card-img-top" alt="Kepler-186f">
-                    <div class="card-body">
-                        <span class="badge bg-success mb-2">Potentially Habitable</span>
-                        <h4 class="card-title">Kepler-186f</h4>
-                        <p class="card-text">Earth-sized planet in the habitable zone of a red dwarf star, discovered by our CNN model with 98.7% confidence.</p>
-                    </div>
-                    <div class="card-footer bg-transparent">
-                        <small class="text-muted">Discovered April 2014 | 582 light-years away</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card discovery-card h-100">
-                    <img src="images/exoplanet2.jpg" class="card-img-top" alt="Kepler-452b">
-                    <div class="card-body">
-                        <span class="badge bg-warning mb-2">Further Analysis Needed</span>
-                        <h4 class="card-title">Kepler-452b</h4>
-                        <p class="card-text">"Earth's cousin" orbiting a Sun-like star, identified through our light curve analysis pipeline.</p>
-                    </div>
-                    <div class="card-footer bg-transparent">
-                        <small class="text-muted">Discovered July 2015 | 1,402 light-years away</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card discovery-card h-100">
-                    <img src="images/exoplanet3.jpg" class="card-img-top" alt="TRAPPIST-1e">
-                    <div class="card-body">
-                        <span class="badge bg-success mb-2">High Habitability Score</span>
-                        <h4 class="card-title">TRAPPIST-1e</h4>
-                        <p class="card-text">Rocky planet with potential liquid water, validated by our habitability prediction model.</p>
-                    </div>
-                    <div class="card-footer bg-transparent">
-                        <small class="text-muted">Discovered February 2017 | 39 light-years away</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="text-center mt-4">
-            <a href="#" class="btn btn-outline-light">View All Discoveries</a>
-        </div>
-    </div>
+  </div>
 </section>
 
-<!-- Latest Blog Posts -->
-<section class="py-5">
-    <div class="container">
-        <div class="row justify-content-between align-items-center mb-4">
-            <div class="col-md-8">
-                <h2 class="display-5 fw-bold">From Our Blog</h2>
-                <p class="lead mb-0">Insights from astronomers and data scientists</p>
-            </div>
-            <div class="col-md-4 text-md-end">
-                <a href="#" class="btn btn-outline-primary">View All Posts</a>
-            </div>
+<!-- Explore Cosmos Section -->
+<section class="cosmos-section">
+  <div class="container">
+    <h2 class="animate__animated animate__fadeIn">Dive Into the Universe</h2>
+    <p class="lead animate__animated animate__fadeIn">From stunning cosmic visuals to the latest space discoveries, explore the wonders of the universe with our curated content.</p>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="card animate__animated animate__zoomIn">
+          <img src="https://source.unsplash.com/400x200/?galaxy" class="card-img-top" alt="Recent APOD">
+          <div class="card-body">
+            <h5 class="card-title">Daily Cosmic Inspiration</h5>
+            <p class="card-text">Discover NASA’s Astronomy Picture of the Day, showcasing the universe’s most breathtaking phenomena.</p>
+            <a href="{% url 'apod' %}" class="btn btn-primary">View APOD</a>
+          </div>
         </div>
-
-        <div class="row g-4">
-            <div class="col-lg-4 col-md-6">
-                <div class="card blog-card h-100">
-                    <img src="images/blog1.jpg" class="card-img-top" alt="Blog Post">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-2">
-                            <img src="images/author1.jpg" class="rounded-circle me-2" width="30" alt="Author">
-                            <small class="text-muted">Dr. Sarah Johnson • 3 days ago</small>
-                        </div>
-                        <h5 class="card-title">Understanding Light Curves</h5>
-                        <p class="card-text">How we decode the subtle dips in starlight that reveal distant worlds.</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="card blog-card h-100">
-                    <img src="images/blog2.jpg" class="card-img-top" alt="Blog Post">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-2">
-                            <img src="images/author2.jpg" class="rounded-circle me-2" width="30" alt="Author">
-                            <small class="text-muted">Prof. Michael Chen • 1 week ago</small>
-                        </div>
-                        <h5 class="card-title">Habitability Index Explained</h5>
-                        <p class="card-text">Our new metric for assessing which exoplanets might support life.</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="card blog-card h-100">
-                    <img src="images/blog3.jpg" class="card-img-top" alt="Blog Post">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-2">
-                            <img src="images/author3.jpg" class="rounded-circle me-2" width="30" alt="Author">
-                            <small class="text-muted">Alex Rivera • 2 weeks ago</small>
-                        </div>
-                        <h5 class="card-title">ML in Astronomy</h5>
-                        <p class="card-text">How convolutional neural networks are revolutionizing exoplanet detection.</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="col-md-6 mb-4">
+        <div class="card animate__animated animate__zoomIn">
+          <img src="https://source.unsplash.com/400x200/?space,launch" class="card-img-top" alt="Recent News">
+          <div class="card-body">
+            <h5 class="card-title">Breaking Space News</h5>
+            <p class="card-text">Keep up with the latest advancements in space exploration and astronomical research.</p>
+            <a href="{% url 'astronomy_news' %}" class="btn btn-primary">Explore News</a>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- Newsletter Signup -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-                <h2 class="display-5 fw-bold mb-3">Stay Updated</h2>
-                <p class="lead mb-4">Subscribe to receive updates on new discoveries, feature releases, and blog posts.</p>
-
-                <form class="row g-2 justify-content-center">
-                    <div class="col-md-8">
-                        <input type="email" class="form-control form-control-lg" placeholder="Your email address">
-                    </div>
-                    <div class="col-md-4">
-                        <button type="submit" class="btn btn-primary btn-lg w-100">Subscribe</button>
-                    </div>
-                    <div class="col-12">
-                        <small class="text-muted">We'll never share your email. Unsubscribe anytime.</small>
-                    </div>
-                </form>
-            </div>
-        </div>
+<!-- Call-to-Action Section -->
+<section class="cta-section">
+  <div class="container">
+    <h3 class="animate__animated animate__fadeInDown">Join Our Galactic Community</h3>
+    <p class="animate__animated animate__fadeInUp">Connect with thousands of space enthusiasts, share your discoveries, and unlock exclusive tools by becoming a member today.</p>
+    <div>
+      <a href="{% url 'signup' %}" class="btn btn-light me-3 animate__animated animate__pulse">Sign Up Now</a>
+      <a href="{% url 'login' %}" class="btn btn-outline-light animate__animated animate__pulse">Log In</a>
     </div>
+  </div>
 </section>
+{% endblock %}
 
-<!-- You can continue the rest of the sections (Recent Discoveries, Blog, Newsletter) in a similar way -->
+{% block extra_js %}
+<script>
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+
+  // Scroll-triggered animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate__animated', 'animate__fadeIn');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('.card, .hero-content, .cosmos-section h2, .cosmos-section p').forEach(el => observer.observe(el));
+</script>
 {% endblock %}

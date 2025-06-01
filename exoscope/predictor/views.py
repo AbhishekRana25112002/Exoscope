@@ -8,13 +8,11 @@ from django.contrib import messages
 import feedparser
 from bs4 import BeautifulSoup
 import requests
-#implement a chatbot and finish the ui - key - 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
-#NASA Picture of the day integration
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
 
-OPENROUTER_API_KEY = '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'
+OPENROUTER_API_KEY = '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'
 
 def chatbot_page(request):
     return render(request, 'chatbot.html')
@@ -52,6 +50,8 @@ def space_llm_chatbot(request):
                 timeout=10
             )
             data = response.json()
+            print("Raw response:", response.text)
+
             reply = data['choices'][0]['message']['content']
             return JsonResponse({'response': reply})
         except Exception as e:
@@ -59,7 +59,6 @@ def space_llm_chatbot(request):
             return JsonResponse({'response': "Something went wrong. Please try again later."})
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
-
 
 
 def apod_view(request):
@@ -89,6 +88,7 @@ def apod_view(request):
         'selected_date': selected_date,
     })
 
+
 def space_widgets(request):
     context = {
         'nasa_api_key': 'S7MI7LkuLOlLDqiTMK7KPzVl22ueOPaQaHx8wMgh',  # Your NASA API key
@@ -100,7 +100,7 @@ def space_widgets(request):
 def astronomy_news(request):
     API_URL = "https://api.spaceflightnewsapi.net/v4/articles"
     params = {
-        "limit": 10,
+        "limit": 25,
         "sort": "publishedAt",
         "order": "desc",
     }
@@ -166,6 +166,7 @@ def login_view(request):
             messages.error(request, 'Invalid username or password')
     return render(request, 'login.html')
 
+
 def logout_view(request):
     logout(request)
     messages.success(request, "Logged out successfully.")
@@ -189,6 +190,7 @@ def signup(request):
     
     return render(request, 'signup.html')
 
+
 @login_required(login_url='login')
 def submit_blog(request):
     if request.method == 'POST':
@@ -207,8 +209,10 @@ def submit_blog(request):
 def home(request):
     return render(request, 'home.html')
 
+
 def results(request):
     return render(request, 'results.html')
+
 
 def analysis(request):
     return render(request, 'analysis.html')
@@ -217,12 +221,15 @@ def analysis(request):
 def blog(request):
     return render(request, 'blog-reader.html')
 
+
 def astronomy_widgets(request):
     return render(request, 'astronomy-widgets.html')
+
 
 def blogs(request):
     blogs = Blog.objects.order_by('-created_at')
     return render(request, 'space-blogs.html', {'blogs': blogs})
+
 
 def blog_detail(request, pk):
     blog = get_object_or_404(Blog, pk=pk)
