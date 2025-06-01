@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Advanced Space Tools{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/space_widget.css' %}">
+<link href="https://cesium.com/downloads/cesiumjs/releases/1.110/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="space-widgets-container">
+
+    <header class="text-center mb-5">
+        <h1><i class="fas fa-rocket me-2"></i>Advanced Space Tools</h1>
+        <p class="lead text-muted">Explore our planet and beyond with these interactive space visualization tools</p>
+    </header>
+
+    <div class="widget-grid">
+        <!-- 3D Earth Visualization -->
+        <section class="widget-section" id="earth-3d">
+            <div class="section-header">
+                <h2><i class="fas fa-globe-americas me-2"></i>3D Earth Visualization</h2>
+                <div class="section-controls">
+                    <button class="btn btn-sm btn-outline-primary" id="reset-view"><i class="fas fa-sync-alt me-1"></i>Reset View</button>
+                </div>
+            </div>
+            <div id="cesiumContainer" class="widget-box">
+                <div class="cesium-loading">
+                    <div class="spinner-border text-primary"></div>
+                    <p>Initializing 3D Earth...</p>
+                </div>
+            </div>
+            <p class="widget-description">Interactive 3D globe with satellite imagery and terrain data. Zoom, rotate, and explore Earth from space.</p>
+        </section>
+
+        <!-- Light Pollution Map -->
+        <section class="widget-section" id="light-pollution">
+            <div class="section-header">
+                <h2><i class="fas fa-lightbulb me-2"></i>Light Pollution Map</h2>
+                <div class="section-controls">
+                    <button class="btn btn-sm btn-outline-primary" id="refresh-light-map"><i class="fas fa-redo me-1"></i>Refresh</button>
+                </div>
+            </div>
+            <div class="widget-box">
+                <iframe src="https://www.lightpollutionmap.info/#zoom=3" class="light-map-iframe" frameborder="0"></iframe>
+            </div>
+            <p class="widget-description">Global map showing artificial light pollution levels at night. Darker areas have better visibility of stars.</p>
+        </section>
+    </div>
+
+    <!-- NASA Image and Video Library -->
+    <section class="widget-section" id="nasa-media">
+        <div class="section-header">
+            <h2><i class="fas fa-photo-video me-2"></i>NASA Image & Video Library</h2>
+            <div class="section-controls">
+                <button class="btn btn-sm btn-outline-primary" id="random-nasa"><i class="fas fa-random me-1"></i>Random</button>
+            </div>
+        </div>
+        <div class="search-container">
+            <div class="input-group">
+                <input type="text" id="nasa-search" class="form-control" placeholder="Search NASA media (e.g. 'earth', 'mars', 'galaxy')">
+                <button class="btn btn-primary" id="nasa-search-btn"><i class="fas fa-search me-1"></i>Search</button>
+            </div>
+        </div>
+        <div id="nasa-gallery" class="gallery-container"></div>
+    </section>
+
+    <!-- Mars Rover Photos -->
+    <section class="widget-section" id="mars-rover">
+        <div class="section-header">
+            <h2><i class="fas fa-robot me-2"></i>Mars Rover Photos</h2>
+            <div class="section-controls">
+                <select class="form-select form-select-sm" id="rover-select">
+                    <option value="curiosity">Curiosity</option>
+                    <option value="opportunity">Opportunity</option>
+                    <option value="spirit">Spirit</option>
+                    <option value="perseverance">Perseverance</option>
+                </select>
+            </div>
+        </div>
+        <div class="rover-controls">
+            <button id="fetch-mars" class="btn btn-primary"><i class="fas fa-cloud-download-alt me-1"></i>Load Latest Photos</button>
+            <small class="text-muted">Showing latest <span id="current-rover">Curiosity</span> rover photos</small>
+        </div>
+        <div id="mars-gallery" class="gallery-container"></div>
+    </section>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cesium.com/downloads/cesiumjs/releases/1.110/Build/Cesium/Cesium.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/imagesloaded@4.1.4/imagesloaded.pkgd.min.js"></script>
+<script>
+    // Pass Django context variables to JavaScript
+    const NASA_API_KEY = '{{ nasa_api_key }}';
+    const CESIUM_TOKEN = '{{ cesium_token }}';
+</script>
+<script src="{% static 'js/space_widget.js' %}"></script>
+{% endblock %}

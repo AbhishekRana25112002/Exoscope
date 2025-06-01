@@ -1,36 +1,233 @@
-.chart-card {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-}
-.chart-card:hover {
-  transform: translateY(-6px);
-}
 
-.chart-card-header {
-  background-color: var(--secondary-color);
-  color: white;
-  padding: 1rem;
-  font-weight: bold;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
+  .hero-section {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(240, 245, 255, 0.88)), url('https://source.unsplash.com/1600x900/?space') no-repeat center center/cover;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 0, 50, 0.15), transparent);
+    z-index: 1;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+  }
+  .hero-section h1 {
+    font-family: 'Space Mono', monospace;
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  }
+  .hero-section p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem;
+    color: #2c3e50;
+    margin-bottom: 2.5rem;
+  }
+  .hero-section .btn {
+    font-family: 'Roboto', sans-serif;
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  }
+  .hero-image {
+    max-width: 800px;
+    margin: 2.5rem auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+  .hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 20px;
+  }
 
-.animate-on-scroll {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.animate-on-scroll.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+  /* Features Section */
+  .features-section {
+    background: #f9fbff;
+    padding: 100px 0;
+  }
+  .features-section h2 {
+    font-family: 'Space Mono', monospace;
+    font-size: 3rem;
+    color: #1a1a1a;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .features-section p.lead {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    color: #555;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+  }
+  .features-section .card {
+    border: none;
+    border-radius: 20px;
+    background: #fff;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    overflow: hidden;
+    text-align: left;
+  }
+  .features-section .card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  }
+  .features-section .card-img-top {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 1px solid #e9ecef;
+  }
+  .features-section .card-body {
+    padding: 2.5rem;
+  }
+  .features-section .card-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: #007bff;
+    margin-bottom: 1rem;
+  }
+  .features-section .card-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    color: #4a4a4a;
+    line-height: 1.6;
+  }
+  .features-section .btn {
+    font-family: 'Poppins', sans-serif;
+    border-radius: 25px;
+    padding: 10px 25px;
+  }
 
-.pulse {
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(52,152,219,0.4); }
-  70% { box-shadow: 0 0 0 15px rgba(52,152,219,0); }
-  100% { box-shadow: 0 0 0 0 rgba(52,152,219,0); }
-}
+  /* Cosmos Section */
+  .cosmos-section {
+    background: #fff;
+    padding: 100px 0;
+    text-align: center;
+  }
+  .cosmos-section h2 {
+    font-family: 'Space Mono', monospace;
+    font-size: 2.8rem;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+  }
+  .cosmos-section p.lead {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+  }
+  .cosmos-section .card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
+  .cosmos-section .card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+  }
+  .cosmos-section .card-body {
+    padding: 2rem;
+  }
+  .cosmos-section .card-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    color: #007bff;
+  }
+  .cosmos-section .btn {
+    font-family: 'Roboto', sans-serif;
+    padding: 10px 25px;
+    border-radius: 50px;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(90deg, #007bff, #00b7eb);
+    color: #fff;
+    padding: 80px 0;
+    text-align: center;
+    border-radius: 0 0 20px 20px;
+  }
+  .cta-section h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .cta-section p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-section .btn {
+    font-family: 'Roboto', sans-serif;
+    padding: 15px 35px;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    transition: transform 0.3s ease;
+  }
+  .cta-section .btn:hover {
+    transform: scale(1.1);
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .hero-section h1 {
+      font-size: 3rem;
+    }
+    .hero-section p {
+      font-size: 1.3rem;
+    }
+    .hero-image {
+      max-width: 90%;
+    }
+    .features-section h2 {
+      font-size: 2.2rem;
+    }
+    .features-section .card-img-top {
+      height: 180px;
+    }
+    .cosmos-section .card-img-top {
+      height: 150px;
+    }
+  }
+  @media (max-width: 576px) {
+    .hero-section h1 {
+      font-size: 2.2rem;
+    }
+    .hero-section p {
+      font-size: 1.1rem;
+    }
+    .features-section .card-title {
+      font-size: 1.4rem;
+    }
+    .cta-section h3 {
+      font-size: 2rem;
+    }
+  }

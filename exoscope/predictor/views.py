@@ -89,12 +89,12 @@ def apod_view(request):
     })
 
 
-def space_widgets(request):
+def gallery(request):
     context = {
         'nasa_api_key': 'S7MI7LkuLOlLDqiTMK7KPzVl22ueOPaQaHx8wMgh',  # Your NASA API key
         'cesium_token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmYmVkZDA1OC1mNDhkLTRmYjYtODA4NC1iNzE5ZjU4YjJjMTkiLCJpZCI6MzA1ODgyLCJpYXQiOjE3NDgwOTkxMzJ9._KRyachytxT3rBUqAW5LegBaO1MbIzaxlgb7x9_1bI4',
     }
-    return render(request, 'space_widgets.html', context)
+    return render(request, 'gallery.html', context)
 
 
 def astronomy_news(request):
@@ -228,7 +228,7 @@ def astronomy_widgets(request):
 
 def blogs(request):
     blogs = Blog.objects.order_by('-created_at')
-    return render(request, 'space-blogs.html', {'blogs': blogs})
+    return render(request, 'blogs.html', {'blogs': blogs})
 
 
 def blog_detail(request, pk):

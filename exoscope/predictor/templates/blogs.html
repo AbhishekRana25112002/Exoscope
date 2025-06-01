@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Space Blogs{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/space-blogs.css' %}">
+{% endblock %}
+
+{% block content %}
+  <!-- Hero Section -->
+  <div class="hero text-center">
+    <div class="container hero-content">
+      <h1 class="display-4 mb-3 hero-title">
+        <i class="fas fa-newspaper"></i> Space News & Blogs
+      </h1>
+      <p class="lead">
+        Latest discoveries and research in exoplanet astronomy
+      </p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Blog Posts -->
+    
+    <div class="row mt-4">
+      {% for blog in blogs %}
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card article-card h-100">
+            <a href="{% url 'blog_detail' blog.id %}">
+              {% if blog.image %}
+                <img src="{{ blog.image.url }}" class="card-img-top" alt="{{ blog.title }}">
+              {% else %}
+                <img src="{% static 'images/default-blog.jpg' %}" class="card-img-top" alt="{{ blog.title }}">
+              {% endif %}
+            </a>
+            <span class="badge bg-primary">{{ blog.get_category_display }}</span>
+            <div class="card-body">
+              <!-- Inside the card-body -->
+               
+              <h5 class="card-title">
+                <a href="{% url 'blog_detail' blog.id %}" class="text-decoration-none text-dark">
+                  {{ blog.title }}
+                </a>
+              </h5>
+
+              <p class="card-text text-muted">{{ blog.content|truncatewords:30 }}</p>
+            </div>
+            <div class="card-footer bg-transparent">
+              <small class="text-muted">
+                {{ blog.created_at|date:"F j, Y" }} • 
+                {% with read_time=blog.content|wordcount %}
+                  {% if read_time < 200 %}1 min read{% else %}{{ read_time|divisibleby:200 }} min read{% endif %}
+                {% endwith %}
+              </small>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="col-12 text-center py-5">
+          <i class="fas fa-newspaper fa-3x mb-3 text-muted"></i>
+          <h4>No articles found</h4>
+          <p class="text-muted">Check back later for new space discoveries</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Simple Newsletter Form -->
+  <div class="container mt-5">
+    <div class="card newsletter-card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-8">
+            <h4><i class="fas fa-paper-plane me-2"></i>Stay Updated</h4>
+            <p class="mb-0">Get notified about new space discoveries and subscribe to our newsletter which is coming soon</p>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
