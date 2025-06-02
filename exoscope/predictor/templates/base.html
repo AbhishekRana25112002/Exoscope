@@ -54,7 +54,13 @@
             <a class="nav-link {% if request.path == '/astronomy-news/' %}active{% endif %}" href="{% url 'astronomy_news' %}">News</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if request.path == '/chatbot/' or request.path == '/spacebot/' %}active{% endif %}" href="{% url 'chatbot_page' %}">Chatbot</a>
+            <a class="nav-link {% if request.path == '/chatbot/' or request.path == '/spacebot/' %}active{% endif %}" href="{% url 'chatbot_page' %}">Chat</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == '/gallery/' %}active{% endif %}" href="{% url 'gallery' %}">Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == '/submit/' %}active{% endif %}" href="{% url 'submit_blog' %}">Write</a>
           </li>
         </ul>
         
@@ -118,6 +124,7 @@
               <li><a href="{% url 'astronomy_news' %}">Space News</a></li>
               <li><a href="{% url 'submit_blog' %}">Submit Blog</a></li>
               <li><a href="{% url 'chatbot_page' %}">Chatbot</a></li>
+              <li><a href="{% url 'gallery' %}">Gallery</a></li>
             </ul>
           </div>
         </div>

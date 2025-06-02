@@ -143,6 +143,7 @@ body {
     border-radius: 50px;
     transition: all 0.3s ease;
     border: 2px solid transparent;
+    background-color: #1b4b9a; /* Added for better contrast */
 }
 
 .nav-pills .nav-link:hover {

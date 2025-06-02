@@ -1,21 +1,51 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Cesium 3D Earth
-    initCesium();
-    
-    // Setup NASA media gallery
-    setupNasaGallery();
-    
-    // Setup Mars rover photos
-    setupMarsRover();
-    
-    // Event listeners
-    document.getElementById('reset-view').addEventListener('click', resetCesiumView);
-    document.getElementById('refresh-light-map').addEventListener('click', refreshLightMap);
-    document.getElementById('random-nasa').addEventListener('click', fetchRandomNasaMedia);
-    document.getElementById('nasa-search-btn').addEventListener('click', searchNasaMedia);
-    document.getElementById('fetch-mars').addEventListener('click', fetchMarsPhotos);
-    document.getElementById('rover-select').addEventListener('change', updateRoverSelection);
+document.addEventListener('DOMContentLoaded', function () {
+    // Initialize Cesium if the container exists
+    if (document.getElementById('cesiumContainer')) {
+        initCesium();
+    }
+
+    // Setup NASA media gallery if the section exists
+    if (document.getElementById('nasa-gallery')) {
+        setupNasaGallery();
+    }
+
+    // Setup Mars rover photos if the section exists
+    if (document.getElementById('mars-gallery')) {
+        setupMarsRover();
+    }
+
+    // Event listeners — only if elements exist
+    const resetBtn = document.getElementById('reset-view');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', resetCesiumView);
+    }
+
+    const lightMapBtn = document.getElementById('refresh-light-map');
+    if (lightMapBtn) {
+        lightMapBtn.addEventListener('click', refreshLightMap);
+    }
+
+    const nasaRandomBtn = document.getElementById('random-nasa');
+    if (nasaRandomBtn) {
+        nasaRandomBtn.addEventListener('click', fetchRandomNasaMedia);
+    }
+
+    const nasaSearchBtn = document.getElementById('nasa-search-btn');
+    if (nasaSearchBtn) {
+        nasaSearchBtn.addEventListener('click', searchNasaMedia);
+    }
+
+    const marsBtn = document.getElementById('fetch-mars');
+    if (marsBtn) {
+        marsBtn.addEventListener('click', fetchMarsPhotos);
+    }
+
+    const roverSelect = document.getElementById('rover-select');
+    if (roverSelect) {
+        roverSelect.addEventListener('change', updateRoverSelection);
+    }
 });
+
 
 // Cesium 3D Earth Functions
 let viewer;

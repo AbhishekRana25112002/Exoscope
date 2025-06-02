@@ -6,26 +6,27 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/blog-detail.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}
 
 {% block content %}
-<div class="cosmic-container">
-  <!-- Stellar Header -->
-  <header class="stellar-header" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{% if blog.image %}{{ blog.image.url }}{% else %}{% static 'images/sample.jpg' %}{% endif %}')">
+<div class="blog-container">
+  <!-- Blog Header -->
+  <header class="blog-header">
     <div class="header-content">
-      <div class="cosmic-meta">
-        <span class="cosmic-category">{{ blog.get_category_display }}</span>
-        <span class="cosmic-date"><i class="far fa-calendar-alt"></i> {{ blog.created_at|date:"F j, Y" }}</span>
+      <div class="blog-meta">
+        <span class="blog-category">{{ blog.get_category_display }}</span>
+        <span class="blog-date"><i class="far fa-calendar-alt"></i> {{ blog.created_at|date:"F j, Y" }}</span>
         {% if request.user.is_authenticated %}
         <a href="{% url 'submit_blog' %}" class="write-post-btn">
           <i class="fas fa-pen-fancy"></i> Write Post
         </a>
         {% endif %}
       </div>
-      <h1 class="cosmic-title animate__animated animate__fadeInUp">{{ blog.title }}</h1>
-      <div class="cosmic-author">
+      <h1 class="blog-title animate__animated animate__fadeInUp">{{ blog.title }}</h1>
+      <div class="blog-author">
         <div class="author-avatar">
-          <img src="{% static 'images/astronaut-avatar.png' %}" alt="Author">
+          <img src="{% static 'images/astronaut-avatar.jpg' %}" alt="Author">
         </div>
         <div class="author-info">
           <span class="author-name">Published by {{ blog.author.username|default:"Cosmic Explorer" }}</span>
@@ -33,79 +34,58 @@
         </div>
       </div>
     </div>
-    <div class="cosmic-scroll-indicator">
-      <span>Explore</span>
-      <i class="fas fa-chevron-down"></i>
-    </div>
   </header>
 
-  <!-- Nebula Content -->
-  <main class="nebula-content">
-    <article class="cosmic-article">
+  <!-- Featured Image -->
+  <div class="featured-image">
+    <img src="{% if blog.image %}{{ blog.image.url }}{% else %}{% static 'images/sample.jpg' %}{% endif %}" alt="{{ blog.title }}">
+  </div>
+
+  <!-- Main Content -->
+  <main class="blog-content">
+    <article class="blog-article">
       {{ blog.content|linebreaks }}
     </article>
 
-    <!-- Galactic Actions -->
-    <div class="galactic-actions">
-      <div class="action-buttons">
-        <button class="action-btn like-btn">
-          <i class="fas fa-star"></i> <span>Like</span>
-        </button>
-        <button class="action-btn bookmark-btn">
-          <i class="fas fa-bookmark"></i> <span>Save</span>
-        </button>
-        <div class="social-share">
-          <span>Share:</span>
-          <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-          <a href="#" class="social-icon"><i class="fab fa-reddit-alien"></i></a>
-        </div>
-      </div>
+    <!-- Blog Actions -->
+    <div class="blog-actions">
+      
       <a href="{% url 'blogs' %}" class="back-to-blogs">
-        <i class="fas fa-arrow-left"></i> Back to Cosmic Chronicles
+        <i class="fas fa-arrow-left"></i> Back to All Posts
       </a>
     </div>
   </main>
 
-  <!-- Constellation Comments -->
-  <section class="constellation-comments">
+  <!-- Comments Section -->
+  <section class="comments-section">
     <div class="section-header">
-      <div class="section-title">
-        <i class="fas fa-comments"></i>
-        <h2>Celestial Discussions <span>({{ blog.comments.count }})</span></h2>
-      </div>
+      <h2><i class="fas fa-comments"></i> Comments <span>({{ blog.comments.count }})</span></h2>
       <p>Join the conversation with fellow space enthusiasts</p>
     </div>
 
     {% if blog.comments.all %}
-      <div class="comments-grid">
+      <div class="comments-list">
         {% for comment in blog.comments.all %}
-        <div class="comment-orbit">
-          <div class="comment-comet">
-            <div class="comment-header">
-              <div class="comment-avatar">
-                <i class="fas fa-user-astronaut"></i>
-              </div>
-              <div class="comment-author">
-                <strong>{{ comment.name }}</strong>
-                <span class="comment-date">{{ comment.created_at|date:"F j, Y, g:i a" }}</span>
-              </div>
+        <div class="comment">
+          <div class="comment-header">
+            <div class="comment-avatar">
+              <i class="fas fa-user-astronaut"></i>
             </div>
-            <div class="comment-body">
-              {{ comment.text|linebreaks }}
-            </div>
-            <div class="comment-actions">
-              <button class="reply-btn"><i class="fas fa-reply"></i> Reply</button>
-              <button class="like-btn"><i class="far fa-thumbs-up"></i> 3</button>
+            <div class="comment-meta">
+              <strong>{{ comment.name }}</strong>
+              <span class="comment-date">{{ comment.created_at|date:"F j, Y, g:i a" }}</span>
             </div>
           </div>
+          <div class="comment-body">
+            {{ comment.text|linebreaks }}
+          </div>
+          
         </div>
         {% endfor %}
       </div>
     {% else %}
       <div class="no-comments">
-        <div class="telescope-icon">
+        <div class="empty-icon">
           <i class="fas fa-telescope"></i>
         </div>
         <h3>No Comments Yet</h3>
@@ -113,46 +93,35 @@
       </div>
     {% endif %}
 
-    <!-- Comment Nebula Form -->
-    <div class="comment-nebula">
+    <!-- Comment Form -->
+    <div class="comment-form">
       <div class="section-header">
-        <div class="section-title">
-          <i class="fas fa-pen-nib"></i>
-          <h2>Leave Your Mark</h2>
-        </div>
+        <h2><i class="fas fa-pen-nib"></i> Leave a Comment</h2>
         <p>Your insights help us explore the universe together</p>
       </div>
-      <form method="POST" class="cosmic-form">
+      <form method="POST" class="comment-form-fields">
         {% csrf_token %}
-        <div class="form-constellation">
+        <div class="form-row">
           <div class="form-group">
             <label for="id_name">Your Name</label>
-            {{ form.name }}
-            <i class="fas fa-user form-icon"></i>
-          </div>
-          <div class="form-group">
-            <label for="id_email">Email (optional)</label>
-            {{ form.email }}
-            <i class="fas fa-envelope form-icon"></i>
+            <div class="input-with-icon">
+              {{ form.name }}
+              <i class="fas fa-user"></i>
+            </div>
           </div>
         </div>
         <div class="form-group">
-          <label for="id_text">Your Cosmic Thoughts</label>
-          {{ form.text }}
-          <i class="fas fa-comment-dots form-icon"></i>
+          <label for="id_text">Your Comment</label>
+          <div class="input-with-icon textarea-icon">
+            {{ form.text }}
+            <i class="fas fa-comment-dots"></i>
+          </div>
         </div>
-        <button type="submit" class="cosmic-submit">
-          <i class="fas fa-paper-plane"></i> Launch Comment
+        <button type="submit" class="submit-btn">
+          <i class="fas fa-paper-plane"></i> Post Comment
         </button>
       </form>
     </div>
   </section>
-
-  <!-- Related Galaxies (Posts) -->
-  
 </div>
-{% endblock %}
-
-{% block extra_js %}
-<script src="{% static 'js/blog-detail.js' %}"></script>
 {% endblock %}

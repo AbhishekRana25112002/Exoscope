@@ -49,9 +49,7 @@
             <div class="card-footer bg-transparent">
               <small class="text-muted">
                 {{ blog.created_at|date:"F j, Y" }} • 
-                {% with read_time=blog.content|wordcount %}
-                  {% if read_time < 200 %}1 min read{% else %}{{ read_time|divisibleby:200 }} min read{% endif %}
-                {% endwith %}
+                
               </small>
             </div>
           </div>

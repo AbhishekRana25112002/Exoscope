@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
 
-OPENROUTER_API_KEY = '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'
+OPENROUTER_API_KEY = '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'
 
 def chatbot_page(request):
     return render(request, 'chatbot.html')
